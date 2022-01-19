@@ -40,6 +40,8 @@ dependencies:
   formz: ^0.3.2
   rxdart: ^0.18.0
   http: ^0.12.0+1
+  shared_preferences: ^2.0.12
+
 
 dev_dependencies:
   flutter_test:

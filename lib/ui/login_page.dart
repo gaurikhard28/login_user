@@ -11,6 +11,7 @@ class login_page extends StatefulWidget {
 class _login_pageState extends State<login_page> {
   final _contactController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isLoading= false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,8 @@ class _login_pageState extends State<login_page> {
               width: 364,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => profile_page())
-                  );
+                   isLoading= true;
+
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.black,
@@ -66,6 +66,7 @@ class _login_pageState extends State<login_page> {
           ],
         ),
       ),
+
     );
   }
     Widget ContactField(){

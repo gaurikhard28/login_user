@@ -23,27 +23,48 @@ class _signuo_pageState extends State<signuo_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         backgroundColor: Colors.amber,
         body: Container(
         child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-        const Text(" Log In ",
-        style: TextStyle(
-        fontSize: 25,
-        fontWeight: FontWeight.w900,
-        color: Colors.black,
+          const Center(
+            child: Text(" Sign Up ",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w900,
+                color: Colors.black,
 
-    ),),
+              ),),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           ContactField(),
+          const SizedBox(
+            height: 20,
+          ),
           PasswordField(),
-           const Text(" Log In ? ",
-           style: TextStyle(
-           fontSize: 15,
-           fontWeight: FontWeight.w900,
-           color: Colors.black,
-           ),),
+          const SizedBox(
+            height: 20,
+          ),
+          NameField(),
+          const SizedBox(
+            height: 20,
+          ),
+          const Center(
+            child: Text(" Log In ? ",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+              ),),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
             Container(
               height: 80,
               padding: EdgeInsets.only(left: 25, right: 25, bottom: 20),
@@ -62,7 +83,7 @@ class _signuo_pageState extends State<signuo_page> {
     ),
     ),
 
-    child: const Text(" Log In ",
+    child: const Text(" Sign In ",
     style: TextStyle(
     fontSize: 25,
     color: Colors.white,
@@ -103,25 +124,34 @@ class _signuo_pageState extends State<signuo_page> {
       print(response.body);
   }
   Widget ContactField(){
-    return TextFormField(
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
 
-      decoration: InputDecoration(labelText: 'Phone'),
-      controller: _contactController,
+        decoration: InputDecoration(labelText: 'Phone'),
+        controller: _contactController,
 
+      ),
     );
   }
   Widget PasswordField(){
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Password'),
-      controller: _passwordController,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+        decoration: InputDecoration(labelText: 'Password'),
+        controller: _passwordController,
+      ),
     );
   }
   Widget NameField(){
-    return TextFormField(
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
 
-      decoration: InputDecoration(labelText: 'Name'),
-      controller: _nameController,
+        decoration: InputDecoration(labelText: 'Name'),
+        controller: _nameController,
 
+      ),
     );
   }
 

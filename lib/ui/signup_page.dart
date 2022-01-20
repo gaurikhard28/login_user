@@ -108,8 +108,8 @@ class _signuo_pageState extends State<signuo_page> {
     var jsonDate = null;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     isLoading = false;
-    var response = await http.post(
-        'https://sandbox.9930i.com/central/register');
+    var response = await http.post(Uri.parse(
+        'https://sandbox.9930i.com/central/register'));
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       jsonDate = json.decode(response.body);

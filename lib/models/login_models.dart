@@ -13,9 +13,9 @@ class UserLogin {
 });
 
   UserLogin copyWith({
-   required String contact,
-    required String password,
-    required login_form_submission formStatus,
+     String? contact,
+     String? password,
+     login_form_submission? formStatus,
 }){
     return UserLogin(
       contact:contact ?? this.contact,

@@ -15,22 +15,21 @@ class login_bloc extends Bloc<login_event,UserLogin>{
   @override
   Stream<UserLogin> mapEventToState(login_event event) async* {
   if (event is LoginContactChanged){
-    yield state.copyWith(contact: event.contact, password: '', formStatus: );
+    yield state.copyWith(contact: event.contact );
   }
   else if (event is LoginPasswordChanged){
-    yield state.copyWith(password: event.password, formStatus: null, contact: '');
+    yield state.copyWith(password: event.password);
   }
   if (event is LoginSubmitted){
-    yield state.copyWith(formStatus: FormSubmitting(), contact: '', password: '');
+    yield state.copyWith(formStatus: FormSubmitting());
     try{
       await repository.login();
       yield state.copyWith(contact: '', password: 
           '', formStatus: SubmissionSuccess());
       
     }
-    catch(e){
-      yield state.copyWith(contact: '', password:
-      '', formStatus: SubmissionFailed(e));
+    on Exception catch(e){
+      yield state.copyWith( formStatus: SubmissionFailed(e));
     }
   }
   }

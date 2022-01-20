@@ -7,6 +7,10 @@ import 'package:login_user/models/signup_models.dart';
 class Repository{
   final getUserInfo info= getUserInfo();
 
-  Future<User> getAllUsersDetails() =>
-      info.fetchUsersDetails();
+  Future<void> login() async {
+    print('attempting login');
+    await Future.delayed(Duration(seconds: 3));
+    print("login In");
+  }
+
 }

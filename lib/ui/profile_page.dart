@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_user/blocs/profile_bloc.dart';
 import 'package:login_user/ui/profile_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'signup_page.dart';
@@ -11,6 +12,7 @@ class profile_page extends StatefulWidget {
 }
 
 class _profile_pageState extends State<profile_page> {
+  final profileBloc= ProfileBloc();
   late SharedPreferences sharedPreferences;
   @override
   void initState(){
@@ -44,6 +46,7 @@ class _profile_pageState extends State<profile_page> {
               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                   builder: (BuildContext context) => const profile_details()), (
                   Route<dynamic> route) => false);
+              profileBloc.eventSink.add(ProfileAction.Add);
             },
             icon: const Icon(Icons.person_add_rounded,
               color: Colors.white,),
@@ -60,7 +63,7 @@ class _profile_pageState extends State<profile_page> {
       ),
       body: Container(
         color: Colors.white,
-        child: ListTile(
+        child:  ListTile(
 
           leading: Icon(
             Icons.person, color: Colors.amberAccent,),
@@ -69,8 +72,24 @@ class _profile_pageState extends State<profile_page> {
             color: Colors.amberAccent,
             fontWeight: FontWeight.bold,
           ), ),
-          trailing: Icon(
-            Icons.edit, color: Colors.amberAccent,),
+          trailing: Row(
+            children: [
+              IconButton(
+                onPressed: (){
+                  profileBloc.eventSink.add(ProfileAction.Update);
+                },
+                icon:  Icon(
+                  Icons.edit, color: Colors.amberAccent,),),
+          IconButton(
+            onPressed: (){
+              profileBloc.eventSink.add(ProfileAction.Delete);
+            },
+            icon:  Icon(
+              Icons.delete, color: Colors.amberAccent,),),
+            ],
+          ),
+
+
 
 
 

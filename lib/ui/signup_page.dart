@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:login_user/blocs/signup_bloc.dart';
 import 'package:login_user/ui/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,7 @@ class signuo_page extends StatefulWidget {
 }
 
 class _signuo_pageState extends State<signuo_page> {
+  final signBloc= SignBloc();
 
   bool isLoading= false;
   final _contactController = TextEditingController();
@@ -73,8 +75,14 @@ class _signuo_pageState extends State<signuo_page> {
                onPressed: () {
                setState(() {
                  isLoading= true;
+                 setState(() {
+                   signBloc.eventSink.add(SignAction.Submit);
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                       builder: (BuildContext context) => profile_page()), (
+                       Route<dynamic> route) => false);
+                 });
                });
-               sign(_contactController.text,_passwordController.text,_nameController.text);
+               signBloc.sign(_contactController.text,_passwordController.text,_nameController.text);
                },
     style: ElevatedButton.styleFrom(
     primary: Colors.black,
@@ -99,30 +107,7 @@ class _signuo_pageState extends State<signuo_page> {
     );
 
   }
-  sign(String contact,String password, String name ) async {
-    Map data = {
-      'contact': contact,
-      'password': password,
-      'name': name
-    };
-    var jsonDate = null;
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    isLoading = false;
-    var response = await http.post(Uri.parse(
-        'https://sandbox.9930i.com/central/register'));
-    if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON
-      jsonDate = json.decode(response.body);
-      setState(() {
-        sharedPreferences.setString('token', jsonDate('token'));
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-            builder: (BuildContext context) => profile_page()), (
-            Route<dynamic> route) => false);
-      });
-    }
-    else
-      print(response.body);
-  }
+
   Widget ContactField(){
     return Padding(
       padding: const EdgeInsets.all(10.0),
